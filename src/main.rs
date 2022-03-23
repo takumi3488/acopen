@@ -21,7 +21,7 @@ fn main() {
         .into_os_string()
         .into_string()
         .unwrap()
-        .split("/")
+        .split('/')
         .last()
         .unwrap()
         .to_string();
@@ -40,7 +40,7 @@ fn main() {
 fn number_to_alphabet(num: usize) -> Result<String, String> {
     let alphabets = "abcdefghijklmnopqrstuvwxyz".chars().collect::<Vec<char>>();
     if num == 0 {
-        return Err("Invalid argument (0)".to_string());
+        Err("Invalid argument (0)".to_string())
     } else if num <= 26 {
         Ok(alphabets[num - 1].to_string())
     } else if num <= 26 * 26 {
@@ -50,7 +50,7 @@ fn number_to_alphabet(num: usize) -> Result<String, String> {
             alphabets[(num - 1) % 26]
         ))
     } else {
-        return Err("Problem ids greater than 26^2 are not supported.".to_string());
+        Err("Problem ids greater than 26^2 are not supported.".to_string())
     }
 }
 
