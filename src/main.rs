@@ -5,10 +5,14 @@ use webbrowser::open;
 #[derive(Parser)]
 struct Cli {
     problem_num: String,
+
+    #[clap(short, long)]
+    submissions: bool,
 }
 
 fn main() {
-    let problem_num: String = Cli::parse().problem_num;
+    let args = Cli::parse();
+    let problem_num: String = args.problem_num;
     let mut problem_id = problem_num.clone();
     if let Ok(n) = problem_id.parse::<usize>() {
         match number_to_alphabet(n) {
@@ -25,10 +29,17 @@ fn main() {
         .last()
         .unwrap()
         .to_string();
-    let url = format!(
-        "https://atcoder.jp/contests/{}/tasks/{}_{}",
-        contest_id, contest_id, problem_id
-    );
+    let url = if args.submissions {
+        format!(
+            "https://atcoder.jp/contests/{}/submissions?f.LanguageName=Rust&f.Status=AC&f.Task={}_{}&f.User=&orderBy=source_length",
+            contest_id, contest_id, problem_id
+        )
+    } else {
+        format!(
+            "https://atcoder.jp/contests/{}/tasks/{}_{}",
+            contest_id, contest_id, problem_id
+        )
+    };
     if open(&url).is_ok() {
         println!(
             "Open the page with the following problem in your default browser.\nContest: {}\nProblem: {}",
