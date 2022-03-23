@@ -27,3 +27,9 @@ acopen <problem-id>
 ```
 
 problem-idは、cargo-atcoderを使用している場合、ファイル名から拡張子を取り除いた部分です。
+
+`-s`オプションを付けると自分以外を含む全てのRustでのAC提出をコード長が短い順に表示できます。
+
+```sh
+acopen <problem-id> -s
+```
